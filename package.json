@@ -1,0 +1,13 @@
+{
+  "name": "core-api-node",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node src/index",
+    "dev":"nodemon src/index"
+  },
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
+}
