@@ -1,7 +1,7 @@
 const cluster = require('cluster');
 const server = require('./app');
 const numCPUs = require('os').cpus().length;
-const PORT = process.env.PORT || 4545;
+const PORT = process.env.PORT || 5050;
 
 if (cluster.isMaster) {
   for (let i = 0; i < numCPUs; i++)

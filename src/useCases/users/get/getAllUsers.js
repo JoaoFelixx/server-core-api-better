@@ -5,7 +5,7 @@ async function getAllUsers(request, response) {
     response.writeHead(200, DEFAULT_HEADER)
       .end(JSON.stringify('OK'));
   } catch (error) {
-    response.writeHead(400, DEFAULT_HEADER).end();
+    response.writeHead(400).end();
   }
 }
 
