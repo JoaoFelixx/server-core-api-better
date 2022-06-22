@@ -38,7 +38,7 @@ const secureServer = http2.createSecureServer(sslSettings)
       request.setTimeout(4000, () => response.status(408).json('Timeout'))
 
     } catch (error) {
-      response.writeHead(500, DEFAULT_HEADER).end();
+      response.sendStatus(500);
     }
   })
   .on('error', (error) => console.log(error))

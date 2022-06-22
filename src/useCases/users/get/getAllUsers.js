@@ -5,7 +5,7 @@ async function getAllUsers(request, response = Response) {
   try {
     response.status(200).json("OK");
   } catch (error) {
-    response.writeHead(400).end();
+    response.sendStatus(400);
   }
 }
 
