@@ -1,9 +1,10 @@
 const Response = {
-  status: () => {
+  status: (statusCode) => {
     return {
-      json: () => { }
+      json: (data) => { }
     };
-  }
+  },
+  sendStatus: (statusCode) => { },
 }
 
 module.exports = { Response };

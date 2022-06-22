@@ -18,6 +18,7 @@ const secureServer = http2.createSecureServer(sslSettings)
         "GET, POST, PATCH, DELETE, OPTIONS"
       );
       
+      response.sendStatus = (status) => response.writeHead(status, DEFAULT_HEADER).end();
       response.status = (status) => { 
         response.writeHead(status, DEFAULT_HEADER)
         
@@ -33,6 +34,8 @@ const secureServer = http2.createSecureServer(sslSettings)
       const route = routes[urlFormatted] || routes.default;
 
       await route(request, response);
+
+      request.setTimeout(4000, () => response.status(408).json('Timeout'))
 
     } catch (error) {
       response.writeHead(500, DEFAULT_HEADER).end();
