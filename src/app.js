@@ -17,6 +17,14 @@ const secureServer = http2.createSecureServer(sslSettings)
         "Access-Control-Allow-Methods",
         "GET, POST, PATCH, DELETE, OPTIONS"
       );
+      
+      response.status = (status) => { 
+        response.writeHead(status, DEFAULT_HEADER)
+        
+        return {
+          json: response.json = (data) => response.end(JSON.stringify(data))
+        } 
+      }; 
 
       const { url, method } = request;
 

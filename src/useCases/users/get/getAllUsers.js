@@ -1,9 +1,9 @@
 const { DEFAULT_HEADER } = require('../../../config');
+const { Response } = require('../../../utils');
 
-async function getAllUsers(request, response) {
+async function getAllUsers(request, response = Response) {
   try {
-    response.writeHead(200, DEFAULT_HEADER)
-      .end(JSON.stringify('OK'));
+    response.status(200).json("OK");
   } catch (error) {
     response.writeHead(400).end();
   }

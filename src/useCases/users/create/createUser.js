@@ -1,4 +1,4 @@
-const { JDB } = require('../../../Jsql');
+const { JDB } = require('../../../JDB');
 
 async function createUser(user) {
   try {
