@@ -1,14 +1,22 @@
-const { DEFAULT_HEADER } = require('./config');
-const { getAllUsers, createUserController } = require('./useCases');
+const { getUsersController, createUserController } = require('./useCases');
+const { Response } = require('./utils');
+const routesAndControllers = {};
+const Controller = () => { };
 
-const routeNotAFound = (request, response) =>
-  response.writeHead(404, DEFAULT_HEADER)
-    .end(JSON.stringify('PAGE NOT A FOUND'));
+const RouteMethods = () => {
+  return {
+    get: (path, controller = Controller) => routesAndControllers[`GET:${path}`] = controller,
+    put: (path, controller = Controller) => routesAndControllers[`PUT:${path}`] = controller,
+    post: (path, controller = Controller) => routesAndControllers[`POST:${path}`] = controller,
+    delete: (path, controller = Controller) => routesAndControllers[`DELETE:${path}`] = controller,
+  }
+}
 
-const routes = {
-  '/:GET': getAllUsers,
-  '/users:POST': createUserController,
-  'default': routeNotAFound,
-};
+const routes = RouteMethods();
 
-module.exports = routes;
+routesAndControllers.default = (request, response = Response) => response.status(404).json('Page not a found')
+
+routes.get('/users', getUsersController);
+routes.post('/users', createUserController);
+
+module.exports = routesAndControllers;

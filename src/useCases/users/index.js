@@ -1,4 +1,4 @@
-const { getAllUsers } = require('./get');
+const { getUsersController } = require('./get');
 const { createUserController } = require('./create');
 
-module.exports = { getAllUsers, createUserController };
+module.exports = { getUsersController, createUserController };

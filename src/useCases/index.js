@@ -1,3 +1,3 @@
-const { getAllUsers, createUserController } = require('./users');
+const { getUsersController, createUserController } = require('./users');
 
-module.exports = { getAllUsers, createUserController };
+module.exports = { getUsersController, createUserController };

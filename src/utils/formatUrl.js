@@ -1,5 +1,5 @@
 const formatUrl = (url = '', method = '') => {
-  const urlFormatted = `${url.toLowerCase()}:${method.toUpperCase()}`;
+  const urlFormatted = `${method.toUpperCase()}:${url.toLowerCase()}`;
 
   return urlFormatted;
 }
