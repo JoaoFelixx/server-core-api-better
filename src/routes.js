@@ -1,5 +1,5 @@
 const { getUsersController, createUserController } = require('./useCases');
-const { Response } = require('./utils');
+const { Response } = require('./config');
 const routesAndControllers = {};
 const Controller = () => { };
 

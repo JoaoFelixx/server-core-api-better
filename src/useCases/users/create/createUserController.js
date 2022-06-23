@@ -1,30 +1,31 @@
 const { randomUUID: uuid } = require('crypto');
 const { createUser } = require('./createUser');
-const { DEFAULT_HEADER } = require('../../../config');
+const { Request, Response } = require('../../../config');
 
-async function createUserController(request, response) {
+async function createUserController(request = Request, response = Response) {
   try {
-    request.on('data', async (body) => {
-      const { username } = JSON.parse(body)
 
-      if (!username) 
-        throw new Error()
-      
-      const user = {
-        _id: uuid(),
-        username: username.toLowerCase()
-      }
+    console.log(request.body);
 
-      const result = await createUser(user); 
+    const { username } = request.body;
 
-      if (result instanceof Error)
-        return response.writeHead(400).end(JSON.stringify(result.message));
+    if (!username)
+      throw new Error()
 
-      return response.writeHead(201, DEFAULT_HEADER)
-        .end(JSON.stringify('User created'));
-    });
+    const user = {
+      _id: uuid(),
+      username: username.toLowerCase()
+    }
+
+    const result = await createUser(user);
+
+    if (result instanceof Error)
+      return response.status(400).json(result.message);
+
+    return response.status(201).json(user);
+
   } catch (error) {
-    response.writeHead(400, DEFAULT_HEADER).end();
+    response.sendStatus(400);
   }
 }
 

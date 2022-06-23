@@ -1,7 +1,6 @@
 const http2 = require('http2');
 const fs = require('fs');
 const routes = require('./routes');
-const { formatUrl } = require('./utils');
 const { DEFAULT_HEADER } = require('./config');
 
 const sslSettings = {
@@ -17,25 +16,27 @@ const secureServer = http2.createSecureServer(sslSettings)
         "Access-Control-Allow-Methods",
         "GET, POST, PATCH, DELETE, OPTIONS"
       );
-      
+
       response.sendStatus = (status) => response.writeHead(status, DEFAULT_HEADER).end();
-      response.status = (status) => { 
+      response.status = (status) => {
         response.writeHead(status, DEFAULT_HEADER)
-        
+
         return {
           json: response.json = (data) => response.end(JSON.stringify(data))
-        } 
-      }; 
-
+        }
+      };
       const { url, method } = request;
+      const [, route, id] = url.split('/');
+      
+      request.params = { id };
+      
+      const urlFormatted = `${method.toUpperCase()}:/${route.toLowerCase()}`;
 
-      const urlFormatted = formatUrl(url, method);
+      const routeSelected = routes[urlFormatted] || routes.default;
 
-      const route = routes[urlFormatted] || routes.default;
+      await routeSelected(request, response);
 
-      await route(request, response);
-
-      request.setTimeout(4000, () => response.status(408).json('Timeout'))
+      request.setTimeout(4000, () => response.status(408).json('Request timeout exceeded'))
 
     } catch (error) {
       response.sendStatus(500);
