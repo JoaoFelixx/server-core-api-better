@@ -3,7 +3,7 @@ const { Response } = require('./utils');
 const routesAndControllers = {};
 const Controller = () => { };
 
-const RouteMethods = () => {
+const Router = () => {
   return {
     get: (path, controller = Controller) => routesAndControllers[`GET:${path}`] = controller,
     put: (path, controller = Controller) => routesAndControllers[`PUT:${path}`] = controller,
@@ -12,9 +12,10 @@ const RouteMethods = () => {
   }
 }
 
-const routes = RouteMethods();
+const routes = Router();
 
-routesAndControllers.default = (request, response = Response) => response.status(404).json('Page not a found')
+routesAndControllers.default = (request, response = Response) => 
+  response.status(404).json('Page not a found')
 
 routes.get('/users', getUsersController);
 routes.post('/users', createUserController);
