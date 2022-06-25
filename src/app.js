@@ -16,6 +16,8 @@ const secureServer = http2.createSecureServer(sslSettings)
         "Access-Control-Allow-Methods",
         "GET, POST, PATCH, DELETE, OPTIONS"
       );
+      response.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+      response.setHeader('Access-Control-Allow-Credentials', true);
 
       response.sendStatus = (status) => response.writeHead(status, DEFAULT_HEADER).end();
       response.status = (status) => {
@@ -27,9 +29,14 @@ const secureServer = http2.createSecureServer(sslSettings)
       };
       const { url, method } = request;
       const [, route, id] = url.split('/');
-      
+
       request.params = { id };
-      
+
+      if (method === 'POST' || method === 'PUT') {
+        for await (data of request)
+          request.body = JSON.parse(data)
+      }
+
       const urlFormatted = `${method.toUpperCase()}:/${route.toLowerCase()}`;
 
       const routeSelected = routes[urlFormatted] || routes.default;

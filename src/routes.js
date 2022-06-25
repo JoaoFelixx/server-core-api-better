@@ -1,14 +1,18 @@
-const { getUsersController, createUserController } = require('./useCases');
 const { Response } = require('./config');
+const { 
+  getUsersController, 
+  createUserController,
+  deleteUserController,
+} = require('./useCases');
+
 const routesAndControllers = {};
-const Controller = () => { };
 
 const Router = () => {
   return {
-    get: (path, controller = Controller) => routesAndControllers[`GET:${path}`] = controller,
-    put: (path, controller = Controller) => routesAndControllers[`PUT:${path}`] = controller,
-    post: (path, controller = Controller) => routesAndControllers[`POST:${path}`] = controller,
-    delete: (path, controller = Controller) => routesAndControllers[`DELETE:${path}`] = controller,
+    get: (path, controller) => routesAndControllers[`GET:${path}`] = controller,
+    put: (path, controller) => routesAndControllers[`PUT:${path}`] = controller,
+    post: (path, controller ) => routesAndControllers[`POST:${path}`] = controller,
+    delete: (path, controller) => routesAndControllers[`DELETE:${path}`] = controller,
   }
 }
 
@@ -19,5 +23,6 @@ routesAndControllers.default = (request, response = Response) =>
 
 routes.get('/users', getUsersController);
 routes.post('/users', createUserController);
+routes.delete('/users', deleteUserController);
 
 module.exports = routesAndControllers;

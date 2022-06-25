@@ -4,9 +4,6 @@ const { Request, Response } = require('../../../config');
 
 async function createUserController(request = Request, response = Response) {
   try {
-
-    console.log(request.body);
-
     const { username } = request.body;
 
     if (!username)
