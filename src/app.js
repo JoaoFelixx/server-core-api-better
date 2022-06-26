@@ -14,7 +14,7 @@ const secureServer = http2.createSecureServer(sslSettings)
       response.setHeader("Access-Control-Allow-Origin", "*");
       response.setHeader(
         "Access-Control-Allow-Methods",
-        "GET, POST, PATCH, DELETE, OPTIONS"
+        "GET, POST, PUT, PATCH, DELETE, OPTIONS"
       );
       response.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
       response.setHeader('Access-Control-Allow-Credentials', true);
