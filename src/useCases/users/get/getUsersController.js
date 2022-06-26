@@ -7,7 +7,7 @@ async function getUsersController(request = Request, response = Response) {
 
     const users = await getUsers();
 
-    response.status(200).json(users);
+    response.json(users);
 
   } catch (error) {
     response.sendStatus(400);
