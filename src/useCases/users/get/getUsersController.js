@@ -10,6 +10,7 @@ async function getUsersController(request = Request, response = Response) {
     response.json(users);
 
   } catch (error) {
+    console.log(error)
     response.sendStatus(400);
   }
 }

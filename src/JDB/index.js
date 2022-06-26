@@ -8,9 +8,40 @@ const models = {
   employees: join(__dirname, '..', '..', 'database', 'employees.json')
 }
 
+const User = {
+  _id: {
+    isPrimary: true
+  },
+  username: {
+    type: '',
+    isUnique: true,
+  },
+  items: ['_id', 'username']
+}
+
+const Employee = {
+  _id: {
+    isPrimary: true,
+  },
+  name: {
+    type: '',
+    isUnique: true,
+  },
+  dayOff: {
+    type: '',
+    isUnique: false
+  },
+  items: ['_id', 'name', 'dayOff']
+}
+
+const modelsSettings = {
+  model: ''
+}
+
 class JDB {
-  constructor(model) {
-    this.model = model;
+  constructor(model = modelsSettings) {
+    Object.assign(this, model)
+    this.selectedModel = model.model ? User : Employee;
   }
 
   async get() {
@@ -21,7 +52,7 @@ class JDB {
     return data;
   }
 
-  async set(item) {
+  async create(item) {
     const data = await this.get();
 
     data.push(item);
@@ -32,7 +63,7 @@ class JDB {
   async delete(id) {
     const data = await this.get();
 
-    const savedItems = data.filter(({_id}) => _id !== id);
+    const savedItems = data.filter(({ _id }) => _id !== id);
 
     await writeFile(models[this.model], JSON.stringify(savedItems), 'utf8');
   }
