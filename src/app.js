@@ -20,11 +20,12 @@ const secureServer = http2.createSecureServer(sslSettings)
       response.setHeader('Access-Control-Allow-Credentials', true);
 
       response.sendStatus = (status) => response.writeHead(status, DEFAULT_HEADER).end();
+      response.json = (data) => response.writeHead(200, DEFAULT_HEADER).end(JSON.stringify(data))
       response.status = (status) => {
         response.writeHead(status, DEFAULT_HEADER)
 
         return {
-          json: response.json = (data) => response.end(JSON.stringify(data))
+          json: (data) => response.end(JSON.stringify(data))
         }
       };
       const { url, method } = request;

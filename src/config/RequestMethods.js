@@ -4,6 +4,7 @@ const Response = {
       json: (data) => { }
     };
   },
+  json: () => {},
   sendStatus: (statusCode = 0) => { },
 }
 
