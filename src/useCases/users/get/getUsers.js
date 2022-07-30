@@ -1,13 +1,16 @@
 const { JDB } = require('../../../JDB');
 
-async function getUsers() {
+async function getUsers(id) {
   const Users = new JDB({ model: 'users' });
-
-  console.log(Users);
 
   const users = await Users.get();
 
-  return users;
+  if (!id) 
+    return users;
+
+  const user = users.find(({ _id }) => _id  === id);
+
+  return user;
 }
 
 module.exports = { getUsers };

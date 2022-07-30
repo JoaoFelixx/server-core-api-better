@@ -1,3 +1,11 @@
-const { getUsersController, createUserController, deleteUserController } = require('./users');
+const { 
+  getUsersController, 
+  deleteUserController, 
+  createUserController, 
+} = require('./users');
 
-module.exports = { getUsersController, createUserController, deleteUserController };
+module.exports = { 
+  getUsersController, 
+  deleteUserController, 
+  createUserController, 
+};

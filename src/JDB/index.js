@@ -1,11 +1,8 @@
 const { join } = require('path');
-const {
-  promises: { readFile, writeFile },
-} = require('fs');
+const { readFile, writeFile } = require('fs/promises');
 
 const models = {
   users: join(__dirname, '..', '..', 'database', 'users.json'),
-  employees: join(__dirname, '..', '..', 'database', 'employees.json')
 }
 
 const User = {
@@ -19,21 +16,6 @@ const User = {
   items: ['_id', 'username']
 }
 
-const Employee = {
-  _id: {
-    isPrimary: true,
-  },
-  name: {
-    type: '',
-    isUnique: true,
-  },
-  dayOff: {
-    type: '',
-    isUnique: false
-  },
-  items: ['_id', 'name', 'dayOff']
-}
-
 const modelsSettings = {
   model: ''
 }
@@ -41,7 +23,7 @@ const modelsSettings = {
 class JDB {
   constructor(model = modelsSettings) {
     Object.assign(this, model)
-    this.selectedModel = model.model ? User : Employee;
+    this.selectedModel = model.model && User;
   }
 
   async get() {
