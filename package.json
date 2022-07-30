@@ -1,9 +1,14 @@
 {
   "name": "core-api-node",
   "version": "1.0.0",
+  "author": {
+    "name": "João Félix",
+    "url": "https://felixdeveloper.netlify.app"
+  },
+  "description": "Server nodejs without frameworks",
   "scripts": {
     "start": "node src/index",
-    "dev":"nodemon src/index"
+    "dev": "nodemon src/index"
   },
   "main": "index.js",
   "license": "MIT",

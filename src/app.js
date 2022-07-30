@@ -64,4 +64,4 @@ const secureServer = http2.createSecureServer(sslSettings)
     }
   })
 
-module.exports = secureServer;
+module.exports = { server: secureServer };
