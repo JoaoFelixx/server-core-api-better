@@ -1,4 +1,4 @@
-const { Response, Request } = require('../../../config');
+const { Request, Response } = require('../../../config/RequestMethods');
 const { getUsers } = require('./getUsers');
 
 async function getUsersController(request = Request, response = Response) {

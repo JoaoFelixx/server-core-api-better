@@ -1,4 +1,4 @@
-const { Request, Response } = require('../../../config');
+const { Request, Response } = require('../../../config/RequestMethods');
 const { deleteUser } = require('./deleteUser');
 
 async function deleteUserController(request = Request, response = Response) {

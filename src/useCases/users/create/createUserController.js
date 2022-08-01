@@ -1,6 +1,6 @@
 const { randomUUID: uuid } = require('crypto');
 const { createUser } = require('./createUser');
-const { Request, Response } = require('../../../config');
+const { Request, Response } = require('../../../config/RequestMethods');
 
 async function createUserController(request = Request, response = Response) {
   try {

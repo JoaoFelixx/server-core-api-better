@@ -1,7 +1,7 @@
 const http2 = require('http2');
 const fs = require('fs');
 const { routes } = require('./routes');
-const { DEFAULT_HEADER } = require('./config');
+const { DEFAULT_HEADER } = require('./config/DefaultHeader');
 
 const sslSettings = {
   key: fs.readFileSync('localhost-privkey.pem'),
@@ -33,7 +33,8 @@ const secureServer = http2.createSecureServer(sslSettings)
       response.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
       response.setHeader('Access-Control-Allow-Credentials', true);
 
-      response.sendStatus = (status) => response.writeHead(status, DEFAULT_HEADER).end(statusEnd[status]);
+      response.sendStatus = (status) =>
+        response.writeHead(status, DEFAULT_HEADER).end(JSON.stringify(statusEnd[status]));
       response.json = (data) => response.writeHead(200, DEFAULT_HEADER).end(JSON.stringify(data))
       response.status = (status) => {
         response.writeHead(status, DEFAULT_HEADER);
@@ -47,7 +48,7 @@ const secureServer = http2.createSecureServer(sslSettings)
       request.params = { id };
 
       if (method === 'POST' || method === 'PUT') {
-        for await (data of request)
+        for await (let data of request)
           request.body = JSON.parse(data)
       }
 

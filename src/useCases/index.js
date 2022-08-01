@@ -1,3 +1,4 @@
+const { getLeagueController } = require('./leagues');
 const { 
   getUsersController, 
   deleteUserController, 
@@ -6,6 +7,7 @@ const {
 
 module.exports = { 
   getUsersController, 
+  getLeagueController,
   deleteUserController, 
   createUserController, 
 };

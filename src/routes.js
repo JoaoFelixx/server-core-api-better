@@ -1,6 +1,6 @@
-const { Response } = require('./config');
 const {
   getUsersController,
+  getLeagueController,
   createUserController,
   deleteUserController,
 } = require('./useCases');
@@ -18,10 +18,11 @@ const Router = () => {
 
 const routes = Router();
 
-routesAndControllers.default = (request, response = Response) =>
+routesAndControllers.default = (request, response) =>
   response.sendStatus(404);
 
 routes.get('/users', getUsersController);
+routes.get('/leagues', getLeagueController);
 routes.post('/users', createUserController);
 routes.delete('/users', deleteUserController);
 

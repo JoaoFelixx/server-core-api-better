@@ -2,7 +2,8 @@ const { join } = require('path');
 const { readFile, writeFile } = require('fs/promises');
 
 const models = {
-  users: join(__dirname, '..', '..', 'database', 'users.json'),
+  users: join(__dirname, '..', '..', 'database', 'Users.json'),
+  leagues: join(__dirname, '..', '..', 'database', 'Leagues.json')
 }
 
 const User = {

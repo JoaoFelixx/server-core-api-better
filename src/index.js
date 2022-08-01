@@ -3,7 +3,7 @@ const numCPUs = require('os').cpus().length;
 const { server } = require('./app');
 const PORT = process.env.PORT || 5050;
 
-if (cluster.isMaster) {
+if (cluster.isPrimary) {
   for (let index = 0; index < numCPUs; index++)
     cluster.fork();
 
