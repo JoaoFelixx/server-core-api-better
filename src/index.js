@@ -8,6 +8,5 @@ if (cluster.isPrimary) {
     cluster.fork();
 
   cluster.on('exit', () => cluster.fork());
-
 } else
   server.listen(PORT, () => console.log('Server running'));
