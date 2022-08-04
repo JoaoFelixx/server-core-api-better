@@ -1,7 +1,7 @@
 const { join } = require('path');
 const { readFile, writeFile } = require('fs/promises');
 
-const models = {
+const modelsPath = {
   users: join(__dirname, '..', '..', 'database', 'Users.json'),
   leagues: join(__dirname, '..', '..', 'database', 'Leagues.json')
 }
@@ -16,17 +16,25 @@ const User = {
   }
 }
 
-const modelsSettings = {
+const modelSettings = {
   model: ''
 }
 
+const models = {
+  'users': User,
+  'leagues': null,
+}
+
 class JDB {
-  constructor(model = modelsSettings) {
+  constructor({ model } = modelSettings) {
     Object.assign(this, model)
-    this.selectedModel = User;
+    this.selectedModel = models[model]
   }
 
   isInvalid(user) {
+    if (!this.selectedModel)
+      return false;
+
     const keys = Object.keys(this.selectedModel);
 
     const invalidKeys = keys.filter((key) => {
@@ -48,7 +56,7 @@ class JDB {
   }
 
   async get() {
-    const json = await readFile(models[this.model], 'utf8');
+    const json = await readFile(modelsPath[this.model], 'utf8');
 
     const data = JSON.parse(json);
 
@@ -60,7 +68,7 @@ class JDB {
 
     data.push(item);
 
-    await writeFile(models[this.model], JSON.stringify(data), 'utf8');
+    await writeFile(modelsPath[this.model], JSON.stringify(data), 'utf8');
   }
 
   async delete(id) {
@@ -68,7 +76,7 @@ class JDB {
 
     const savedItems = data.filter(({ _id }) => _id !== id);
 
-    await writeFile(models[this.model], JSON.stringify(savedItems), 'utf8');
+    await writeFile(modelsPath[this.model], JSON.stringify(savedItems), 'utf8');
   }
 }
 
