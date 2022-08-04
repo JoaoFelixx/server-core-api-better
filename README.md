@@ -30,13 +30,13 @@ npm dev (dev) npm start (prod)
 
 ## Routes 
 
-HTTP     | ROUTE      | BODY                | HEADER | DESCRIÇÃO |
-| ---    | ------     | ------              | ------ |-----------
-| GET    | /users     |                     |        | Rota retorna usuários cadastrados.
-| GET    | /leagues   |                     |        | Retorna ligas de futenbol
-| POST   | /users     | JSON (name (string) |        | Rota para criar usuários.
-| PUT    | /users:id  | JSON (name (string) |        | Rota atualiza usuários.
-| DELETE | /users/:id |                     |        | Rota deleta usuários por ID.
+| HTTP   | ROUTE      | BODY                | HEADER | DESCRIÇÃO                          |
+| ------ | ---------- | ------------------- | ------ | ---------------------------------- |
+| GET    | /users     |                     |        | Rota retorna usuários cadastrados. |
+| GET    | /leagues   |                     |        | Retorna ligas de futenbol          |
+| POST   | /users     | JSON (name (string) |        | Rota para criar usuários.          |
+| PUT    | /users:id  | JSON (name (string) |        | Rota atualiza usuários.            |
+| DELETE | /users/:id |                     |        | Rota deleta usuários por ID.       |
 
 ## Features Added
 
@@ -46,4 +46,25 @@ HTTP     | ROUTE      | BODY                | HEADER | DESCRIÇÃO |
 > uma applicação mostrando como ultilizar).
 
 ### ***JDB (JSON Database or João Database 😂😂😂)***
-> Oque seria ? É uma imitação do `mongoose` (Doc Mongoose)[https://mongoosejs.com/] (eu queria criar essa idéia a algum tempo já kkkkkk)  
+> Oque seria ? É uma imitação do `mongoose` (Doc Mongoose)[https://mongoosejs.com/] (eu queria criar essa idéia a algum tempo já kkkkkk) 
+> ***Como usar ?***
+> Para começar você cria um json na pasta `database` EX. Soccer.json, cria um 'model' na pasta JDB só para esse arquivo, cria um caminho do arquivo até a pasta cria um referencia EX:
+```js
+const Soccer = {
+  league: {
+    type: 'string'
+  },
+  division: {
+    type: 'number',
+    default: [1,2,3]
+  }
+}
+```
+>Adiciona ao models: 
+```js
+const models = {
+  user: User,
+  soccer: Soccer,
+}
+```
+> E pronto. Já pode fazer requisições de consulta, criação, edição e remoção de dados.
