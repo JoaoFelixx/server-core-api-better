@@ -7,14 +7,13 @@ const models = {
 }
 
 const User = {
-  _id: {
-    isPrimary: true
-  },
   username: {
-    type: '',
-    isUnique: true,
+    type: 'string',
   },
-  items: ['_id', 'username']
+  preferenceColorTheme: {
+    type: 'string',
+    default: ['white', 'dark'],
+  }
 }
 
 const modelsSettings = {
@@ -24,7 +23,28 @@ const modelsSettings = {
 class JDB {
   constructor(model = modelsSettings) {
     Object.assign(this, model)
-    this.selectedModel = model.model && User;
+    this.selectedModel = User;
+  }
+
+  isInvalid(user) {
+    const keys = Object.keys(this.selectedModel);
+
+    const invalidKeys = keys.filter((key) => {
+      if (typeof user[key] !== this.selectedModel[key].type)
+        return true;
+
+      if (!this.selectedModel[key].default)
+        return false;
+
+      const isADefaultValue = this.selectedModel[key].default
+        .find((item) => item === user[key]);
+
+      return isADefaultValue ? false : true;
+    })
+
+    const result = invalidKeys.length > 0 ? invalidKeys : false;
+
+    return result;
   }
 
   async get() {
