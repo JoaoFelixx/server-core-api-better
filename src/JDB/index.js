@@ -48,6 +48,7 @@ class JDB {
         .find((item) => item === user[key]);
 
       return isADefaultValue ? false : true;
+
     })
 
     const result = invalidKeys.length > 0 ? invalidKeys : false;
@@ -74,12 +75,12 @@ class JDB {
   async update(user) {
     const data = await this.get();
 
-    const itemExists = data.find(({ _id }) => _id === user.id);
+    const itemExists = data.find(({ _id }) => _id === user._id);
 
     if (!itemExists)
       return new Error('User does not registered');
 
-    const savedItems = data.filter(({ _id }) => _id !== user.id);
+    const savedItems = data.filter(({ _id }) => _id !== user._id);
 
     savedItems.push(user);
 
