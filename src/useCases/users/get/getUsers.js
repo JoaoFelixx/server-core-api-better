@@ -1,16 +1,20 @@
-const { JDB } = require('../../../JDB');
+const { JDB } = require('../../../JDB/index');
 
 async function getUsers(id) {
-  const Users = new JDB({ model: 'users' });
+  try {
+    const Users = new JDB({ model: 'users' });
 
-  const users = await Users.get();
+    const users = await Users.get();
 
-  if (!id) 
-    return users;
+    if (!id)
+      return users;
 
-  const user = users.find(({ _id }) => _id  === id);
+    const user = users.find(({ _id }) => _id === id);
 
-  return user;
+    return user;
+  } catch (error) {
+    return new Error('Error getting users');
+  }
 }
 
 module.exports = { getUsers };

@@ -5,12 +5,15 @@ async function getUsersController(request = Request, response = Response) {
   try {
     const { id } = request.params;
 
-    const users = await getUsers(id);
+    const result = await getUsers(id);
 
-    if (!users)
-      return response.sendStatus(200);
+    if (result instanceof Error) 
+      return response.sendStatus(400);
 
-    response.json(users);
+    if (!result)
+      return response.sendStatus(204);
+
+    response.json(result);
 
   } catch (error) {
     response.sendStatus(400);
