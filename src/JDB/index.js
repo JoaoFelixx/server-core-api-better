@@ -27,7 +27,7 @@ const models = {
 
 class JDB {
   constructor({ model } = modelSettings) {
-    Object.assign(this, model)
+    this.model = model;
     this.selectedModel = models[model]
   }
 
