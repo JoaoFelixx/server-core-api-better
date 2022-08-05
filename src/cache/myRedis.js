@@ -7,12 +7,22 @@ function addDayToDate() {
   return currentDate;
 }
 
-const find = (_id = '') => myRedis[_id]?.data || null;
+const find = (_id = '') => {
+  const result = myRedis[_id]?.data;
 
-const create = (_id = '', data) => myRedis[_id] = {
-  data: data,
-  expiresIn: addDayToDate()
+  if (!result)
+    return null;
+
+  const data = JSON.parse(myRedis[_id]?.data);
+
+  return data;
 }
+
+const create = (_id = '', data) =>
+  myRedis[_id] = JSON.stringify({
+    data: data,
+    expiresIn: addDayToDate()
+  });
 
 setInterval(() => { // Cleans cache
   const keys = Object.keys(myRedis)
