@@ -3,6 +3,7 @@ const {
   getLeagueController,
   createUserController,
   deleteUserController,
+  updateUserController,
 } = require('./useCases');
 
 const routesAndControllers = {};
@@ -19,10 +20,12 @@ const Router = () => {
 const routes = Router();
 
 routesAndControllers.default = (request, response) =>
-  response.sendStatus(404);
+response.sendStatus(404);
+
+routes.get('/leagues', getLeagueController);
 
 routes.get('/users', getUsersController);
-routes.get('/leagues', getLeagueController);
+routes.put('/users', updateUserController);
 routes.post('/users', createUserController);
 routes.delete('/users', deleteUserController);
 
