@@ -71,6 +71,21 @@ class JDB {
     await writeFile(modelsPath[this.model], JSON.stringify(data), 'utf8');
   }
 
+  async update(user) {
+    const data = await this.get();
+
+    const itemExists = data.find(({ _id }) => _id === user.id);
+
+    if (!itemExists)
+      return new Error('User does not registered');
+
+    const savedItems = data.filter(({ _id }) => _id !== user.id);
+
+    savedItems.push(user);
+
+    await writeFile(modelsPath[this.model], JSON.stringify(savedItems), 'utf8');
+  }
+
   async delete(id) {
     const data = await this.get();
 
