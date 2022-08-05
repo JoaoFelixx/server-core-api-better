@@ -1,8 +1,8 @@
-const { JDB } = require('../../../JDB');
+const { JDB } = require('../../../JDB/index');
 
 async function deleteUser(id) {
   try {
-    const Users = new JDB('users');
+    const Users = new JDB({ model: 'users' });
 
     await Users.delete(id);
   } catch (error) {
