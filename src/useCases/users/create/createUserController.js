@@ -7,14 +7,15 @@ const formatMessage = (messages = ['']) =>
 
 async function createUserController(request = Request, response = Response) {
   try {
-    const { username } = request.body;
+    const { username, preferenceColorTheme } = request.body;
 
     if (!username)
       throw new Error();
 
     const user = {
       _id: uuid(),
-      username: username?.toLowerCase?.()
+      username: username?.toLowerCase?.(),
+      preferenceColorTheme,
     }
 
     const result = await createUser(user);
